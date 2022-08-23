@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-const mock = axios.create({
+const mockRequest = axios.create({
     baseURL:'/mock',
     timeout:5000
 })
 
-mock.interceptors.response.use(res=>{
+mockRequest.interceptors.response.use(res=>{
     return res.data
 })
 
-export default mock
+export default mockRequest

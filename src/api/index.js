@@ -1,5 +1,5 @@
 import request from './request'
-import mock from './mock'
+import mockRequest from './mock'
 
 // 三级联动数据接口 /api/product/getBaseCategoryList GET
 export const reqCategoryList = ()=>{
@@ -9,5 +9,9 @@ export const reqCategoryList = ()=>{
 }
 
 export const reqBannerList = ()=>{
-    return mock('/banner',{methods:'get'})
+    return mockRequest('/banner',{methods:'get'})
+}
+
+export const reqFloorList = ()=>{
+    return mockRequest.get('/floor')
 }
