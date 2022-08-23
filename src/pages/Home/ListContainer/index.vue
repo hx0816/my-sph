@@ -118,7 +118,9 @@ export default {
       this.$nextTick(() => {
         var mySwiper = new Swiper(".swiper-container", {
           loop: true, // 循环模式选项
-
+          autoplay:{
+            stopOnLastSlide:true
+          },
           // 如果需要分页器
           pagination: {
             el: ".swiper-pagination"
