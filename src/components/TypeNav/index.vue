@@ -73,7 +73,7 @@ export default {
     };
   },
   props: {
-    show: {
+    show: {//控制分类显示隐藏
       type: Boolean,
       default: true
     }

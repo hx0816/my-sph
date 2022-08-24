@@ -4,6 +4,11 @@ import router from '@/router'
 import store from './store'
 import TypeNav from '@/components/TypeNav'
 import Carousel from '@/components/Carousel'
+
+// 引入使用element-ui
+// import ElementUI from 'element-ui'
+// Vue.use(ElementUI)
+
 // 引入mockServe
 import '@/mock/mockServe'
 // 引入swiper样式

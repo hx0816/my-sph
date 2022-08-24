@@ -28,9 +28,6 @@ export default {
       }
     }
   },
-  updated() {
-    console.log(this.list);
-  },
   mounted() {
     //   console.log(this.list)
     var mySwiper = new Swiper(".swiper-container", {
