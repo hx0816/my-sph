@@ -23,11 +23,15 @@
               {{searchParams.trademark.split(':')[1]}}
               <i @click="removeTrademark">×</i>
             </li>
+            <li class="with-x" v-for="(attr,index) in searchParams.props" :key="index">
+              {{attr.split(':')[2]}}
+              <i @click="removeAttr">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector  @addTrademark="addTrademark"/>
+        <SearchSelector @addTrademark="addTrademark" @attrInfo="attrInfo" />
 
         <!--details-->
         <div class="details clearfix">
@@ -169,42 +173,54 @@ export default {
       this.$store.dispatch("search/searchInfo", this.searchParams);
     },
     // 清除分类id
-    removeCategoryId(){
+    removeCategoryId() {
       this.searchParams.category1Id = undefined;
       this.searchParams.category2Id = undefined;
       this.searchParams.category3Id = undefined;
     },
     //删除分类
-    removeCategory(){
-      this.searchParams.categoryName = undefined
-      this.removeCategoryId()
+    removeCategory() {
+      this.searchParams.categoryName = undefined;
+      this.removeCategoryId();
       this.$router.push({
-        name:'search',
-        params:{
-          keyword:this.searchParams.keyword
+        name: "search",
+        params: {
+          keyword: this.searchParams.keyword || undefined
         }
-      })
+      });
     },
     //删除关键字
-    removeKeword(){
-      this.searchParams.keyword = undefined
-      this.$bus.$emit('clear')//清除header组件的关键字
+    removeKeword() {
+      this.searchParams.keyword = undefined;
+      this.$bus.$emit("clear"); //清除header组件的关键字
       this.$router.push({
-        name:'search',
-        query:this.$route.query
-      })
+        name: "search",
+        query: this.$route.query
+      });
     },
     // 添加品牌面包屑
-    addTrademark({tmId,tmName}){
-       this.searchParams.trademark = `${tmId}:${tmName}`
-       this.getSearchInfo()
+    addTrademark({ tmId, tmName }) {
+      this.searchParams.trademark = `${tmId}:${tmName}`;
+      this.getSearchInfo();
     },
     // 删除品牌
-    removeTrademark(){
-      this.searchParams.trademark = undefined
-      this.getSearchInfo()
+    removeTrademark() {
+      this.searchParams.trademark = undefined;
+      this.getSearchInfo();
+    },
+    //添加商品售卖参数面包屑
+    attrInfo({ attrId, attrName }, attrValue) {
+      let props = `${attrId}:${attrName}:${attrValue}`;
+      if (!this.searchParams.props.includes(props)) {
+        this.searchParams.props.push(props);
+        this.getSearchInfo();
+      }
+    },
+    // 删除商品售卖参数
+    removeAttr(index) {
+      this.searchParams.props.splice(index, 1);
+      this.getSearchInfo();
     }
-    
   },
   computed: {
     // 不使用命名空间的方式
@@ -234,9 +250,9 @@ export default {
       Object.assign(this.searchParams, this.$route.query, this.$route.params);
       this.getSearchInfo();
       // 每次请求清除上次的id
-      this.removeCategoryId()
+      this.removeCategoryId();
     }
-  },
+  }
 };
 </script>
 
