@@ -14,6 +14,9 @@ import '@/mock/mockServe'
 // 引入swiper样式
 import 'swiper/css/swiper.css'
 
+// 创建事件总线
+Vue.prototype.$bus = new Vue()
+
 
 Vue.config.productionTip = false
 // 三级联动组件全局注册

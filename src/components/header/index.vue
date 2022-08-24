@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     toSearch() {
-      console.log(this.$route.query)
       this.$router.replace({
         name: "search",
         params:{
@@ -59,6 +58,11 @@ export default {
         query:this.$route.query
       })
     }
+  },
+  mounted(){
+    this.$bus.$on('clear',()=>{
+      this.keyword = ''
+    })
   }
 };
 </script>

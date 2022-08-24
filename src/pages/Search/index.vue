@@ -15,6 +15,10 @@
               {{searchParams.categoryName}}
               <i @click="removeCategory">×</i>
             </li>
+            <li class="with-x" v-if="searchParams.keyword">
+              {{searchParams.keyword}}
+              <i @click="removeKeword">×</i>
+            </li>
           </ul>
         </div>
 
@@ -166,7 +170,7 @@ export default {
       this.searchParams.category2Id = undefined;
       this.searchParams.category3Id = undefined;
     },
-    //删除分类面包屑 
+    //删除分类
     removeCategory(){
       this.searchParams.categoryName = undefined
       this.removeCategoryId()
@@ -175,6 +179,15 @@ export default {
         params:{
           keyword:this.searchParams.keyword
         }
+      })
+    },
+    //删除关键字
+    removeKeword(){
+      this.searchParams.keyword = undefined
+      this.$bus.$emit('clear')//清除header组件的关键字
+      this.$router.push({
+        name:'search',
+        query:this.$route.query
       })
     }
   },
