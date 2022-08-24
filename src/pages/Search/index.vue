@@ -472,7 +472,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
   name: "Search",
@@ -499,7 +499,7 @@ export default {
     // })
     
     // 使用命名空间
-    ...mapState('search',['searchInfo'])
+    ...mapGetters('search',['goodsList',"attrsList","trademarkList"])
   },
   mounted() {
     this.$store.dispatch("search/searchInfo");

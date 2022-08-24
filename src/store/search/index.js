@@ -15,7 +15,17 @@ const mutations = {
         state.searchInfo = searchInfo
     }
 }
-const getters = {}
+const getters = {
+    goodsList({searchInfo}){
+        return searchInfo.goodsList || []
+    },
+    attrsList({searchInfo}){
+        return searchInfo.attrsList || []
+    },
+    trademarkList({searchInfo}){
+        return searchInfo.trademarkList || []
+    },
+}
 
 export default {
     namespaced:true,
