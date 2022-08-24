@@ -38,23 +38,18 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{active:isOne}" @click="changeOrder('1')">
+                  <a>
+                    综合
+                    <span v-show="isOne" class="iconfont" :class="{'icon-up':isAsc,'icon-down':isDesc}"></span>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li></li>
+                <li :class="{active:isTwo}" @click="changeOrder('2')">
+                  <a>
+                    价格
+                    <span v-show="isTwo" class="iconfont" :class="{'icon-up':isAsc,'icon-down':isDesc}"></span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -155,7 +150,7 @@ export default {
         category3Id: "", //三级分类id
         categoryName: "", //分类名
         keyword: "", //关键字
-        order: "", //排序
+        order: "1:desc", //排序，默认 综合 降序
         pageNo: 1, //分页器第几页
         pageSize: 10, //每一页展示多少条数据
         props: [], //平台售卖属性操作带的参数
@@ -220,6 +215,20 @@ export default {
     removeAttr(index) {
       this.searchParams.props.splice(index, 1);
       this.getSearchInfo();
+    },
+    // 改变order排序
+    changeOrder(flag){
+      let originFlag = this.searchParams.order.split(':')[0]
+      let originSort = this.searchParams.order.split(':')[1]
+      let newSrot
+      if(flag === originFlag){
+       newSrot =  originSort === 'asc' ? 'desc' : 'asc'
+      }else{
+        newSrot = 'desc'
+      }
+      let newOrder = `${flag}:${newSrot}`
+      this.searchParams.order = newOrder
+      this.getSearchInfo()
     }
   },
   computed: {
@@ -232,7 +241,23 @@ export default {
     // })
 
     // 使用命名空间
-    ...mapGetters("search", ["goodsList"])
+    ...mapGetters("search", ["goodsList"]),
+    isOne() {
+      //综合
+      return this.searchParams.order.includes("1");
+    },
+    isTwo() {
+      //价格
+      return this.searchParams.order.includes("2");
+    },
+    isAsc() {
+      //升序
+      return this.searchParams.order.includes("asc");
+    },
+    isDesc() {
+      //降序
+      return this.searchParams.order.includes('desc')
+    }
   },
   beforeMount() {
     this.searchParams = Object.assign(
@@ -257,6 +282,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url("~@/assets/css/iconfont/iconfont.css");
 .main {
   margin: 10px 0;
 
