@@ -180,7 +180,7 @@ export default {
     // })
 
     // 使用命名空间
-    ...mapGetters("search", ["goodsList", "attrsList", "trademarkList"])
+    ...mapGetters("search", ["goodsList"])
   },
   beforeMount(){
     this.searchParams = Object.assign(this.searchParams,this.$route.params,this.$route.query)
