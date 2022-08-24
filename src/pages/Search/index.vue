@@ -76,8 +76,7 @@
                       target="_blank"
                       href="item.html"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
-                    >{{list.title}}
-                    </a>
+                    >{{list.title}}</a>
                   </div>
                   <div class="commit">
                     <i class="command">
@@ -146,12 +145,29 @@ export default {
   },
   data() {
     return {
-      show: false
+      show: false,
+      searchParams: {
+        category1Id: "",//一级分类id
+        category2Id: "",//二级分类id
+        category3Id: "",//三级分类id
+        categoryName: "",//分类名
+        keyword: "",//关键字
+        order: "",//排序
+        pageNo: 1,//分页器第几页
+        pageSize: 10,//每一页展示多少条数据
+        props: [],//平台售卖属性操作带的参数
+        trademark: ""//品牌
+      }
     };
   },
   methods: {
+    // 分类显示隐藏
     categoryShow(bool) {
       this.show = bool;
+    },
+    // 请求数据
+    getSearchInfo() {
+      this.$store.dispatch("search/searchInfo",this.searchParams);
     }
   },
   computed: {
@@ -162,12 +178,15 @@ export default {
     //     return state.search.searchInfo
     //   }
     // })
-    
+
     // 使用命名空间
-    ...mapGetters('search',['goodsList',"attrsList","trademarkList"])
+    ...mapGetters("search", ["goodsList", "attrsList", "trademarkList"])
+  },
+  beforeMount(){
+    this.searchParams = Object.assign(this.searchParams,this.$route.params,this.$route.query)
   },
   mounted() {
-    this.$store.dispatch("search/searchInfo");
+    this.getSearchInfo()
   }
 };
 </script>

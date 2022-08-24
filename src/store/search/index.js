@@ -5,9 +5,9 @@ const state = {
     searchInfo:{}
 }
 const actions = {
-   async searchInfo({commit}){
-    const data = await reqSearchInfo()
-    commit('SEARCHINFO',data.data)
+   async searchInfo({commit},data={}){
+    const result = await reqSearchInfo(data)
+    commit('SEARCHINFO',result.data)
     }
 }
 const mutations = {
