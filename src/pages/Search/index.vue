@@ -187,6 +187,17 @@ export default {
   },
   mounted() {
     this.getSearchInfo()
+  },
+  watch:{
+    // 路由变化重新请求数据
+    $route(newVal,oldVal){
+      Object.assign(this.searchParams,this.$route.query,this.$route.params)
+      this.getSearchInfo()
+      // 每次请求清除上次的id
+      this.searchParams.category1Id = ""
+      this.searchParams.category2Id = ""
+      this.searchParams.category3Id = ""
+    }
   }
 };
 </script>
