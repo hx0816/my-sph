@@ -4,6 +4,7 @@ import router from '@/router'
 import store from './store'
 import TypeNav from '@/components/TypeNav'
 import Carousel from '@/components/Carousel'
+import Pagination from '@/components/Pagination'
 
 // 引入使用element-ui
 // import ElementUI from 'element-ui'
@@ -19,10 +20,13 @@ Vue.prototype.$bus = new Vue()
 
 
 Vue.config.productionTip = false
+//全局组件注册
 // 三级联动组件全局注册
 Vue.component(TypeNav.name,TypeNav)
 // 轮播图组件
 Vue.component(Carousel.name,Carousel)
+// 分页器组件
+Vue.component(Pagination.name,Pagination)
 
 
 new Vue({
