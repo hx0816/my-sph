@@ -97,14 +97,14 @@
         </div>
 
         <!-- pagination -->
-        <pagination></pagination>
+        <pagination :pageNo="searchParams.pageNo" :pageSize='10' :total="total" @getPageNo="getPageNo"></pagination>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters,mapState } from "vuex";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
   name: "Search",
@@ -199,6 +199,11 @@ export default {
       let newOrder = `${flag}:${newSrot}`
       this.searchParams.order = newOrder
       this.getSearchInfo()
+    },
+    //切换分页器页数
+    getPageNo(pageNo){
+      this.searchParams.pageNo = pageNo
+      this.getSearchInfo()
     }
   },
   computed: {
@@ -212,6 +217,11 @@ export default {
 
     // 使用命名空间
     ...mapGetters("search", ["goodsList"]),
+    ...mapState("search",{
+      total({searchInfo}){
+        return searchInfo.total
+      }
+    }),
     isOne() {
       //综合
       return this.searchParams.order.includes("1");
