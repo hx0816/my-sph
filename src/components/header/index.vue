@@ -54,7 +54,7 @@ export default {
       this.$router.replace({
         name: "search",
         params:{
-          keyword:this.keyword
+          keyword:this.keyword || undefined
         },
         query:this.$route.query
       })

@@ -11,18 +11,9 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">
-              iphone
-              <i>×</i>
-            </li>
-            <li class="with-x">
-              华为
-              <i>×</i>
-            </li>
-            <li class="with-x">
-              OPPO
-              <i>×</i>
+            <li class="with-x" v-if="searchParams.categoryName">
+              {{searchParams.categoryName}}
+              <i @click="removeCategory">×</i>
             </li>
           </ul>
         </div>
@@ -147,16 +138,16 @@ export default {
     return {
       show: false,
       searchParams: {
-        category1Id: "",//一级分类id
-        category2Id: "",//二级分类id
-        category3Id: "",//三级分类id
-        categoryName: "",//分类名
-        keyword: "",//关键字
-        order: "",//排序
-        pageNo: 1,//分页器第几页
-        pageSize: 10,//每一页展示多少条数据
-        props: [],//平台售卖属性操作带的参数
-        trademark: ""//品牌
+        category1Id: "", //一级分类id
+        category2Id: "", //二级分类id
+        category3Id: "", //三级分类id
+        categoryName: "", //分类名
+        keyword: "", //关键字
+        order: "", //排序
+        pageNo: 1, //分页器第几页
+        pageSize: 10, //每一页展示多少条数据
+        props: [], //平台售卖属性操作带的参数
+        trademark: "" //品牌
       }
     };
   },
@@ -167,7 +158,24 @@ export default {
     },
     // 请求数据
     getSearchInfo() {
-      this.$store.dispatch("search/searchInfo",this.searchParams);
+      this.$store.dispatch("search/searchInfo", this.searchParams);
+    },
+    // 清除分类id
+    removeCategoryId(){
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+    },
+    //删除分类面包屑 
+    removeCategory(){
+      this.searchParams.categoryName = undefined
+      this.removeCategoryId()
+      this.$router.push({
+        name:'search',
+        params:{
+          keyword:this.searchParams.keyword
+        }
+      })
     }
   },
   computed: {
@@ -182,23 +190,25 @@ export default {
     // 使用命名空间
     ...mapGetters("search", ["goodsList"])
   },
-  beforeMount(){
-    this.searchParams = Object.assign(this.searchParams,this.$route.params,this.$route.query)
+  beforeMount() {
+    this.searchParams = Object.assign(
+      this.searchParams,
+      this.$route.params,
+      this.$route.query
+    );
   },
   mounted() {
-    this.getSearchInfo()
+    this.getSearchInfo();
   },
-  watch:{
+  watch: {
     // 路由变化重新请求数据
-    $route(newVal,oldVal){
-      Object.assign(this.searchParams,this.$route.query,this.$route.params)
-      this.getSearchInfo()
+    $route() {
+      Object.assign(this.searchParams, this.$route.query, this.$route.params);
+      this.getSearchInfo();
       // 每次请求清除上次的id
-      this.searchParams.category1Id = ""
-      this.searchParams.category2Id = ""
-      this.searchParams.category3Id = ""
+      this.removeCategoryId()
     }
-  }
+  },
 };
 </script>
 
