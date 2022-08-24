@@ -19,11 +19,15 @@
               {{searchParams.keyword}}
               <i @click="removeKeword">×</i>
             </li>
+            <li class="with-x" v-if="searchParams.trademark">
+              {{searchParams.trademark}}
+              <i @click="removeTrademark">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector  @addTrademark="addTrademark"/>
 
         <!--details-->
         <div class="details clearfix">
@@ -189,7 +193,18 @@ export default {
         name:'search',
         query:this.$route.query
       })
+    },
+    // 添加品牌面包屑
+    addTrademark({tmId,tmName}){
+       this.searchParams.trademark = `${tmId}:${tmName}`
+       this.getSearchInfo()
+    },
+    // 删除品牌
+    removeTrademark(){
+      this.searchParams.trademark = undefined
+      this.getSearchInfo()
     }
+    
   },
   computed: {
     // 不使用命名空间的方式
