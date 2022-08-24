@@ -20,7 +20,7 @@
               <i @click="removeKeword">×</i>
             </li>
             <li class="with-x" v-if="searchParams.trademark">
-              {{searchParams.trademark}}
+              {{searchParams.trademark.split(':')[1]}}
               <i @click="removeTrademark">×</i>
             </li>
           </ul>
