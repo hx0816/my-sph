@@ -85,7 +85,7 @@
                 <a href="javascript:" class="mins" @click="skuNum>1&&skuNum--">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click='addShopCart'>加入购物车</a>
               </div>
             </div>
           </div>
@@ -356,6 +356,14 @@ export default {
       } else {
         this.skuNum = parseInt(e.target.value);
       }
+    },
+    // 添加商品到购物车
+    addShopCart(){
+      //携带数据发送请求到服务器，让服务器保存数据
+      this.$store.dispatch('detail/addCart',{
+        skuId:this.$route.params.skuId,
+        skuNum:this.skuNum
+      })
     }
   },
   components: {

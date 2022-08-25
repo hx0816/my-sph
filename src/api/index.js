@@ -42,3 +42,7 @@ export const reqSearchInfo = (data = {}) => {
 export const reqGoodsInfo = skuId => {
     return request.get(`/item/${skuId}`)
 }
+
+// 添加商品到购物车 /api/cart/addToCart/{ skuId }/{ skuNum } POST  (在请求头中需要加入UUID的标识;请求头的名称叫userTempId)
+
+export const reqAddOrGetShopCart = (skuId, skuNum) => request.post(`/cart/addToCart/${skuId}/${skuNum}`)
