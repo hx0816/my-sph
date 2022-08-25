@@ -4,7 +4,7 @@
     <button v-show="startAndEnd.start!==1" @click="$emit('getPageNo',1)">1</button>
     <button v-show='startAndEnd.start>2'>···</button>
 
-    <button v-for="(page,index) in startAndEnd.end" :key='index' v-show="page>=startAndEnd.start" :class="{active:page===pageNo}" @click="$emit('getPageNo',page)">{{page}}</button>
+    <button v-for="(page,index) in startAndEnd.end" :key='index' v-show="page>=startAndEnd.start" :class="{active:page===pageNo}" @click="$emit('getPageNo',page)" :disabled="page===pageNo">{{page}}</button>
     
     <button v-show='startAndEnd.end<totalPage-1'>···</button>
     <button v-show='startAndEnd.end!==totalPage' @click="$emit('getPageNo',totalPage)">{{totalPage}}</button>
