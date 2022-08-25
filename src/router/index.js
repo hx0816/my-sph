@@ -65,6 +65,7 @@ const routes = [
         }
     },
     {
+        name:'detail',
         path:'/detail/:id',
         component:Detail,
         meta:{
@@ -78,7 +79,11 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    routes
+    routes,
+    scrollBehavior(to,from,savedPosition){
+        return {y:0}
+    }
 })
+
 
 export default router
