@@ -6,6 +6,7 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Detail from '@/pages/Detail'
 import AddCartSuccess from '@/pages/AddCartSuccess'
+import ShopCart from '@/pages/ShopCart'
 
 //备份原来的push方法
 let originPush = VueRouter.prototype.push
@@ -77,6 +78,14 @@ const routes = [
         name:'addcartsuccess',
         path:'/addcartsuccess',
         component:AddCartSuccess,
+        meta:{
+            show:true
+        }
+    },
+    {
+        name:'shopcart',
+        path:'/shopcart',
+        component:ShopCart,
         meta:{
             show:true
         }
