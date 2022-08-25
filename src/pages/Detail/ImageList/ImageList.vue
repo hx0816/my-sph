@@ -5,7 +5,6 @@
         class="swiper-slide"
         v-for="(img,index) in imgList"
         :key="img.id"
-       
       >
         <img :src="imgList[index].imgUrl" :class="{active:showIndex===index}" @click="changeImg(index)" />
       </div>
