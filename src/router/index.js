@@ -66,7 +66,7 @@ const routes = [
     },
     {
         name:'detail',
-        path:'/detail/:id',
+        path:'/detail/:skuId',
         component:Detail,
         meta:{
             show:true

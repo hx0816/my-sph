@@ -365,6 +365,9 @@
     components: {
       ImageList,
       Zoom
+    },
+    mounted(){
+      this.$store.dispatch('detail/goodsInfo',this.$route.params.skuId)
     }
   }
 </script>

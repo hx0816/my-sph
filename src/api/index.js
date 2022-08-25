@@ -30,10 +30,15 @@ export const reqFloorList = () => {
 //     "props": ["1:1700-2799:价格", "2:6.65-6.74英寸:屏幕尺寸"],
 //     "trademark": "4:小米"
 //   }
-export const reqSearchInfo = (data={}) =>{
+export const reqSearchInfo = (data = {}) => {
     return request({
-        url:'/list',
-        method:'post',
+        url: '/list',
+        method: 'post',
         data
     })
+}
+
+// 详情页数据 地址/api/item/{ skuId }  GET
+export const reqGoodsInfo = skuId => {
+    return request.get(`/item/${skuId}`)
 }
