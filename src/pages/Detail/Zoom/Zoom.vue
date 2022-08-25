@@ -32,7 +32,6 @@ export default {
       let big = this.$refs.big
       let maxW = event.offsetWidth - mask.offsetWidth
       let maxH = event.offsetHeight - mask.offsetHeight
-      console.log(maxH,maxW)
       let left = e.offsetX - mask.offsetWidth / 2;
       let top = e.offsetY - mask.offsetHeight / 2;
       //边界处理

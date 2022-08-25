@@ -14,7 +14,11 @@ const actions = {
     // 添加到购物车
     async addCart(_, { skuId, skuNum }) {
         const result = await reqAddOrGetShopCart(skuId, skuNum)
-        console.log(result)
+        if (result.code === 200) {
+            return 'ok'
+        } else {
+            return Promise.reject(new Error('failure'))
+        }
     }
 
 }

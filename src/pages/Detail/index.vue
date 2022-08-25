@@ -85,7 +85,7 @@
                 <a href="javascript:" class="mins" @click="skuNum>1&&skuNum--">-</a>
               </div>
               <div class="add">
-                <a href="javascript:" @click='addShopCart'>加入购物车</a>
+                <a href="javascript:" @click="addShopCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -358,12 +358,25 @@ export default {
       }
     },
     // 添加商品到购物车
-    addShopCart(){
+    async addShopCart() {
       //携带数据发送请求到服务器，让服务器保存数据
-      this.$store.dispatch('detail/addCart',{
-        skuId:this.$route.params.skuId,
-        skuNum:this.skuNum
-      })
+      try {
+        await this.$store.dispatch("detail/addCart", {
+          skuId: this.$route.params.skuId,
+          skuNum: this.skuNum
+        })
+        //加入购物车成功
+        sessionStorage.setItem('skuInfo',JSON.stringify(this.skuInfo))
+        this.$router.push({
+          name:'addcartsuccess',
+          query:{
+            skuNum:this.skuNum,
+          }
+        })
+      } catch (error) {
+        // 加入购物车失败
+        alert(error.message);
+      }
     }
   },
   components: {
