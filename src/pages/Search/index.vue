@@ -59,9 +59,9 @@
               <li class="yui3-u-1-5" v-for="list in goodsList" :key="list.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank">
+                    <router-link :to="`/detail/${list.id}`">
                       <img :src="list.defaultImg" />
-                    </a>
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
