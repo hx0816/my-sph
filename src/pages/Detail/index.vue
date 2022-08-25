@@ -67,7 +67,7 @@
               <div class="choosed"></div>
               <dl v-for="saleArr in spuSaleAttrList" :key="saleArr.id">
                 <dt class="title">{{saleArr.saleAttrName}}</dt>
-                <dd class="active" v-for="saleAttrValue in saleArr.spuSaleAttrValueList" :key="saleAttrValue.id">{{saleAttrValue.saleAttrValueName}}</dd>
+                <dd :class="{active:saleAttrValue.isChecked==='1'}" v-for="saleAttrValue in saleArr.spuSaleAttrValueList" :key="saleAttrValue.id" @click="changeActive(saleAttrValue,saleArr.spuSaleAttrValueList)">{{saleAttrValue.saleAttrValueName}}</dd>
                 <!-- <dd changepirce="0" class="active">金色</dd>
                 <dd changepirce="40">银色</dd>
                 <dd changepirce="90">黑色</dd> -->
@@ -333,6 +333,14 @@ export default {
   methods: {
     categoryShow(show) {
       this.show = show;
+    },
+    // 商品售卖属性值排他操作
+    changeActive(current,arr){
+      current.isChecked = '1'
+      arr.forEach((e,i)=>{
+        e.isChecked = '0'
+      })
+      current.isChecked = '1'
     }
   },
   components: {
