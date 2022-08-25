@@ -18,7 +18,7 @@
           <!--放大镜效果-->
           <zoom :imgList="skuInfo.skuImageList" />
           <!-- 小图列表 -->
-          <image-list :imgList="skuInfo.skuImageList"/>
+          <image-list :imgList="skuInfo.skuImageList" />
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -67,17 +67,22 @@
               <div class="choosed"></div>
               <dl v-for="saleArr in spuSaleAttrList" :key="saleArr.id">
                 <dt class="title">{{saleArr.saleAttrName}}</dt>
-                <dd :class="{active:saleAttrValue.isChecked==='1'}" v-for="saleAttrValue in saleArr.spuSaleAttrValueList" :key="saleAttrValue.id" @click="changeActive(saleAttrValue,saleArr.spuSaleAttrValueList)">{{saleAttrValue.saleAttrValueName}}</dd>
+                <dd
+                  :class="{active:saleAttrValue.isChecked==='1'}"
+                  v-for="saleAttrValue in saleArr.spuSaleAttrValueList"
+                  :key="saleAttrValue.id"
+                  @click="changeActive(saleAttrValue,saleArr.spuSaleAttrValueList)"
+                >{{saleAttrValue.saleAttrValueName}}</dd>
                 <!-- <dd changepirce="0" class="active">金色</dd>
                 <dd changepirce="40">银色</dd>
-                <dd changepirce="90">黑色</dd> -->
+                <dd changepirce="90">黑色</dd>-->
               </dl>
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model="skuNum" @change="changeSkuNum" />
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a href="javascript:" class="mins" @click="skuNum>1&&skuNum--">-</a>
               </div>
               <div class="add">
                 <a href="javascript:">加入购物车</a>
@@ -319,7 +324,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 import ImageList from "./ImageList/ImageList";
 import Zoom from "./Zoom/Zoom";
 
@@ -327,7 +332,8 @@ export default {
   name: "Detail",
   data() {
     return {
-      show: false
+      show: false,
+      skuNum: 1
     };
   },
   methods: {
@@ -335,12 +341,21 @@ export default {
       this.show = show;
     },
     // 商品售卖属性值排他操作
-    changeActive(current,arr){
-      current.isChecked = '1'
-      arr.forEach((e,i)=>{
-        e.isChecked = '0'
-      })
-      current.isChecked = '1'
+    changeActive(current, arr) {
+      current.isChecked = "1";
+      arr.forEach((e, i) => {
+        e.isChecked = "0";
+      });
+      current.isChecked = "1";
+    },
+    // 改变商品购买数
+    changeSkuNum(e) {
+      if (isNaN(e.target.value * 1)) {
+        console.log("非法");
+        this.skuNum = e.target.value = 1;
+      } else {
+        this.skuNum = parseInt(e.target.value);
+      }
     }
   },
   components: {
@@ -350,8 +365,8 @@ export default {
   mounted() {
     this.$store.dispatch("detail/goodsInfo", this.$route.params.skuId);
   },
-  computed:{
-    ...mapGetters('detail',['categoryView','skuInfo','spuSaleAttrList'])
+  computed: {
+    ...mapGetters("detail", ["categoryView", "skuInfo", "spuSaleAttrList"])
   }
 };
 </script>
