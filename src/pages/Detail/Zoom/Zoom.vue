@@ -1,9 +1,9 @@
 <template>
-  <div class="spec-preview">
-    <img src="../images/s1.png" />
+  <div class="spec-preview" v-if="imgList.length">
+    <img :src="imgList[showIndex].imgUrl" />
     <div class="event"></div>
     <div class="big">
-      <img src="../images/s1.png" />
+      <img :src="imgList[showIndex].imgUrl" />
     </div>
     <div class="mask"></div>
   </div>
@@ -12,6 +12,24 @@
 <script>
   export default {
     name: "Zoom",
+    data(){
+      return {
+        showIndex:0
+      }
+    },
+    props:{
+      imgList:{
+        type:Array,
+        default(){
+          return []
+        }
+      }
+    },
+    mounted(){
+      this.$bus.$on('changeImg',index=>{
+        this.showIndex = index
+      })
+    }
   }
 </script>
 

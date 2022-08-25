@@ -1,8 +1,8 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container" v-if="imgList.length">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="../images/s1.png">
+      <div class="swiper-slide" v-for="(img,index) in imgList" :key="img.id" @click="changeImg(index)">
+        <img :src="imgList[index].imgUrl">
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -15,6 +15,20 @@
   import Swiper from 'swiper'
   export default {
     name: "ImageList",
+    props:{
+      imgList:{
+        type:Array,
+        default(){
+          return []
+        }
+      }
+    },
+    methods:{
+      // 改变图片
+      changeImg(index){
+        this.$bus.$emit('changeImg',index)
+      }
+    }
   }
 </script>
 
