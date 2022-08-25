@@ -16,7 +16,14 @@ const mutations = {
         state.goodsInfo = goodsInfo
     }
 }
-const getters = {}
+const getters = {
+    categoryView({goodsInfo}){
+        return goodsInfo.categoryView || {}
+    },
+    skuInfo({goodsInfo}){
+        return goodsInfo.skuInfo || {}
+    },
+}
 
 
 
@@ -27,5 +34,6 @@ export default {
     namespaced:true,
     state,
     actions,
-    mutations
+    mutations,
+    getters
 }
