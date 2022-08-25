@@ -23,6 +23,10 @@ const getters = {
     skuInfo({goodsInfo}){
         return goodsInfo.skuInfo || {}
     },
+    spuSaleAttrList({goodsInfo}){
+        return goodsInfo.spuSaleAttrList || []
+    },
+
 }
 
 

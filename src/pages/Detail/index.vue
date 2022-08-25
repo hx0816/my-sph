@@ -65,29 +65,12 @@
           <div class="choose">
             <div class="chooseArea">
               <div class="choosed"></div>
-              <dl>
-                <dt class="title">选择颜色</dt>
-                <dd changepirce="0" class="active">金色</dd>
+              <dl v-for="saleArr in spuSaleAttrList" :key="saleArr.id">
+                <dt class="title">{{saleArr.saleAttrName}}</dt>
+                <dd class="active" v-for="saleAttrValue in saleArr.spuSaleAttrValueList" :key="saleAttrValue.id">{{saleAttrValue.saleAttrValueName}}</dd>
+                <!-- <dd changepirce="0" class="active">金色</dd>
                 <dd changepirce="40">银色</dd>
-                <dd changepirce="90">黑色</dd>
-              </dl>
-              <dl>
-                <dt class="title">内存容量</dt>
-                <dd changepirce="0" class="active">16G</dd>
-                <dd changepirce="300">64G</dd>
-                <dd changepirce="900">128G</dd>
-                <dd changepirce="1300">256G</dd>
-              </dl>
-              <dl>
-                <dt class="title">选择版本</dt>
-                <dd changepirce="0" class="active">公开版</dd>
-                <dd changepirce="-1000">移动版</dd>
-              </dl>
-              <dl>
-                <dt class="title">购买方式</dt>
-                <dd changepirce="0" class="active">官方标配</dd>
-                <dd changepirce="-240">优惠移动版</dd>
-                <dd changepirce="-390">电信优惠版</dd>
+                <dd changepirce="90">黑色</dd> -->
               </dl>
             </div>
             <div class="cartWrap">
@@ -360,7 +343,7 @@ export default {
     this.$store.dispatch("detail/goodsInfo", this.$route.params.skuId);
   },
   computed:{
-    ...mapGetters('detail',['categoryView','skuInfo'])
+    ...mapGetters('detail',['categoryView','skuInfo','spuSaleAttrList'])
   }
 };
 </script>
