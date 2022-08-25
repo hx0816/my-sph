@@ -5,9 +5,9 @@
         class="swiper-slide"
         v-for="(img,index) in imgList"
         :key="img.id"
-        @click="changeImg(index)"
+       
       >
-        <img :src="imgList[index].imgUrl" :class="{active:showIndex===index}" />
+        <img :src="imgList[index].imgUrl" :class="{active:showIndex===index}" @click="changeImg(index)" />
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -35,7 +35,7 @@ export default {
   methods: {
     // 改变图片
     changeImg(index) {
-      this.showIndex = index;
+      this.showIndex = index
       this.$bus.$emit("changeImg", index);
     }
   },
@@ -43,7 +43,6 @@ export default {
     imgList() {
       this.$nextTick(() => {
         var mySwiper = new Swiper(".swiper-container", {
-          loop: true, // 循环模式选项
           // 如果需要前进后退按钮
           navigation: {
             nextEl: ".swiper-button-next",
